@@ -1,10 +1,10 @@
 package entity.account;
 
-public class account {
+public class Account {
         private String name;
         private int balance;
 
-        public account(String name, int balance) {
+        public Account(String name, int balance) {
             this.name = name;
             this.balance = balance;
         }
