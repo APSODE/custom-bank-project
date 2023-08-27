@@ -5,17 +5,17 @@ public class MinusAccount extends Account {
     private long loan;
     private long maxRepayment;
     private long interest;
-    private float rate;
+    private double rate;
 
-    public MinusAccount(long credit, long loan, long maxRepayment, long interest, float rate) {
-        this.credit = credit;
-        this.loan = loan;
-        this.maxRepayment = maxRepayment;
-        this.interest = interest;
-        this.rate = rate;
+    public MinusAccount(long credit, long loan, long maxRepayment, long interest, double rate) {
+        this.credit = credit;  //한도
+        this.loan = loan;  //대출액
+        this.maxRepayment = maxRepayment;  // 상환
+        this.interest = interest;  // 이자
+        this.rate = rate;  //이자율
     }
 
-    public static MinusAccount CreateObject(long credit, long loan, long maxRepayment, long interest, float rate) {
+    public static MinusAccount CreateObject(long credit, long loan, long maxRepayment, long interest, double rate) {
         return new MinusAccount(
                 credit,
                 loan,
@@ -66,11 +66,11 @@ public class MinusAccount extends Account {
         this.interest = interest;
     }
 
-    public float getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(float rate) {
+    public void setRate(double rate) {
         this.rate = rate;
     }
 
