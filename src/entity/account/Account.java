@@ -1,19 +1,29 @@
 package entity.account;
 
 public class Account {
-        private String name;
-        private int balance;
+    private userAccount UsserAccount;
+    private long balance;
+    private long limit;
 
-        public Account(String name, int balance) {
-            this.name = name;
-            this.balance = balance;
-        }
+    public long getBalance() {
+        return balance;
 
-        public boolean withdraw(int money) {
-            if (money > 0 && balance >= money) {
-                balance -= money;
-                return true;
-            }
-            return false;
-        }
     }
+    public boolean deposit(long amount, String pw){
+    }
+    public boolean withdraw(long amount, String pw){
+
+    }
+    public long getLimit() {
+        return limit;
+    }
+    public void setLimit(long limit){
+        this.limit = limit;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
+}
