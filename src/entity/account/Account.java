@@ -5,7 +5,7 @@ import controller.Printer;
 import entity.user.UserAccount;
 
 public class Account {
-    private userAccount UsserAccount;
+    private UserAccount userAccount;
     private long balance;
     private long limit;
 
