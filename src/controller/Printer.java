@@ -14,4 +14,9 @@ public class Printer {
         bw.write(value);
         bw.flush();
     }
+    public void print(long value) throws IOException
+    {
+        bw.write((int) value);
+        bw.flush();
+    }
 }
