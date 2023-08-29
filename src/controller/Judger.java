@@ -1,6 +1,7 @@
 package controller;
 
 import entity.user.User;
+import entity.user.UserAccount;
 
 public class Judger {
     public boolean isPossibleToWithdraw(long balance, long amount)
@@ -15,7 +16,7 @@ public class Judger {
     {
         return amount > 0;
     }
-    public boolean isRightPw(User user, String pw)
+    public boolean isRightPw(UserAccount user, String pw)
     {
         return pw.equals(user.getPw());
     }
