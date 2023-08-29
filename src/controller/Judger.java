@@ -4,7 +4,7 @@ import entity.user.User;
 import entity.user.UserAccount;
 
 public class Judger {
-    public boolean isPossibleToWithdraw(long balance, long amount)
+    public static boolean isPossibleToWithdraw(long balance, long amount)
     {
         if (amount > 0)
         {
@@ -12,11 +12,11 @@ public class Judger {
         }
         return false;
     }
-    public boolean isPossibleToDeposit(long amount)
+    public static boolean isPossibleToDeposit(long amount)
     {
         return amount > 0;
     }
-    public boolean isRightPw(UserAccount user, String pw)
+    public static boolean isRightPw(UserAccount user, String pw)
     {
         return pw.equals(user.getPw());
     }
