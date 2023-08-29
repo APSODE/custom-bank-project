@@ -12,4 +12,6 @@ public class SavingAccount extends Account{
     public void setRate(float rate) {
         this.rate = rate;
     }
+
+
 }
