@@ -5,6 +5,7 @@ public class SavingAccount extends Account{
     private LocalDate lastWithdrawDate;
 
     public float getRate(){
+
         return rate;
     }
 
