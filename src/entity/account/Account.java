@@ -4,8 +4,13 @@ import controller.Judger;
 import controller.Printer;
 import entity.user.UserAccount;
 
+import controller.Printer;
+import controller.Inputter;
+import entity.user.UserAccount;
+import java.io.IOException;
+
 public class Account {
-    private UserAccount userAccount;
+    private UserAccount UserAccount;
     private long balance;
     private long limit;
 
@@ -19,7 +24,14 @@ public class Account {
         return balance;
 
     }
-    public boolean deposit(long amount, String pw){
+    public boolean deposit(long amount, String pw) throws IOException {
+        Printer printer = new Printer();
+        printer.print("잔액을 확인하시겠습니까?(y/n)");
+        Inputter inputter = new Inputter();
+        String answer = inputter.inpString();
+        if(answer == "y" ){
+            printer.print(balance);
+        }
     }
     public boolean withdraw(long amount, String pw){
 
