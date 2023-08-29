@@ -24,12 +24,11 @@ public class Judger {
     {
         return pw.equals(userAccount.getPw());
     }
-
-    static class BalanceException extends Exception
+}
+class BalanceException extends Exception
+{
+    public BalanceException(String message)
     {
-        public BalanceException(String message)
-        {
-            super(message);
-        }
+        super(message);
     }
 }
