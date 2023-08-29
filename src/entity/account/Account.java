@@ -24,6 +24,35 @@ public class Account {
     public boolean withdraw(long amount, String pw){
 
     }
+
+    // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
+    protected boolean depositByOverRepayment(long amount) {
+        int errorCount = 0;
+        try {
+            this.balance += amount;
+
+        } catch (Exception error) {
+            errorCount++;
+
+            // Printer 클래스의 print메소드를 static으로 수정 후 해당 라인을 Printer클래스의 print메소드로 교체 진행
+            System.out.println("알 수 없는 에러 발생.");
+
+        } finally {
+            return errorCount == 0;
+        }
+    }
+
+    // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
+    protected boolean withdrawByRepayment(long amount) {
+        if (Judger.isPossibleToWithdraw(this.balance, amount)) {
+            this.balance -= amount;
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
     public long getLimit() {
         return limit;
     }
