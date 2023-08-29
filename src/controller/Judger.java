@@ -25,10 +25,3 @@ public class Judger {
         return pw.equals(userAccount.getPw());
     }
 }
-class BalanceException extends Exception
-{
-    public BalanceException(String message)
-    {
-        super(message);
-    }
-}
