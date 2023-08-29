@@ -16,8 +16,8 @@ public class Judger {
     {
         return amount > 0;
     }
-    public static boolean isRightPw(UserAccount user, String pw)
+    public static boolean isRightPw(UserAccount userAccount, String pw)
     {
-        return pw.equals(user.getPw());
+        return pw.equals(userAccount.getPw());
     }
 }

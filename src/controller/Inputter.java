@@ -6,21 +6,21 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class Inputter {
-    InputStream inputStream = System.in;
-    InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-    BufferedReader bf = new BufferedReader(inputStreamReader);
+    static InputStream inputStream = System.in;
+    static InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+    static BufferedReader bf = new BufferedReader(inputStreamReader);
 
-    public int inpInt() throws IOException
+    public static int inpInt() throws IOException
     {
         return Integer.parseInt(bf.readLine());
     }
 
-    public long inpLong() throws  IOException
+    public static long inpLong() throws  IOException
     {
         return Long.parseLong(bf.readLine());
     }
 
-    public String inpString() throws IOException
+    public static String inpString() throws IOException
     {
         return bf.readLine();
     }
