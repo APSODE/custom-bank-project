@@ -3,14 +3,15 @@ package entity.account;
 import controller.Judger;
 import controller.Printer;
 import entity.user.UserAccount;
-
 import controller.Printer;
 import controller.Inputter;
 import entity.user.UserAccount;
 import java.io.IOException;
+import controller.BalanceException;
 
 public class Account {
-    private UserAccount UserAccount;
+
+    private UserAccount userAccount;
     private long balance;
     private long limit;
 
@@ -25,17 +26,42 @@ public class Account {
 
     }
     public boolean deposit(long amount, String pw) throws IOException {
-        Printer printer = new Printer();
-        printer.print("잔액을 확인하시겠습니까?(y/n)");
-        Inputter inputter = new Inputter();
-        String answer = inputter.inpString();
-        if(answer == "y" ){
-            printer.print(balance);
+        Printer.print("비밀번호를 입력하세요.");
+        String password = Inputter.inpString();
+        if (Judger.isRightPw(userAccount, password)) {
+            Printer.print("비밀번호가 확인되었습니다.");
+        } else {
+            Printer.print("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
         }
-    }
-    public boolean withdraw(long amount, String pw){
 
+        Printer.print("잔액을 확인하시겠습니까?(y/n)");
+        String answer = Inputter.inpString();
+        if (answer == "y") {
+            Printer.print(balance);
+        }
+        Printer.print("입금할 금액을 입력해 주세요.");
+        if (Judger.isPossibleToDeposit(amount)) {
+            balance += amount;
+        } else {
+            Printer.print("0보다 작은 금액은 입금할 수 없습니다.");
+        }
+
+        return true;
     }
+    public boolean withdraw(long amount, String pw) throws IOException {
+        Printer.print("출금할 입력을 입력해 주세요.");
+        try{
+            if(Judger.isPossibleToWithdraw(balance,amount)) {
+                balance -= amount;
+            }
+        }
+        catch (BalanceException|IllegalArgumentException exception){
+                System.out.println(exception.getMessage());
+            }
+        return true;
+        }
+
+
 
     // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
     protected boolean depositByOverRepayment(long amount) {
@@ -76,5 +102,4 @@ public class Account {
     public String toString() {
         return super.toString();
     }
-
 }
