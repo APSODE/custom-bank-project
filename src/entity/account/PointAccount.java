@@ -15,7 +15,7 @@ public class PointAccount extends Account {
         return point;
     }
 
-    public boolean earnPoints(long point, long amount) {
+    public boolean earnPoints(long amount) {
         if (Judger.isPossibleToDeposit(amount)) {
             point = (long) (amount * 0.03);
         }
