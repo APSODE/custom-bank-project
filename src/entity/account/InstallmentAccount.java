@@ -40,5 +40,4 @@ public class InstallmentAccount extends Account {
         this.dueDate = dueDate;
     }
 
-    private
 }

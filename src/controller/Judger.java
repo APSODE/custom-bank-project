@@ -1,5 +1,6 @@
 package controller;
 
+import entity.account.Account;
 import entity.account.PointAccount;
 import entity.user.User;
 import entity.user.UserAccount;
@@ -13,7 +14,7 @@ public class Judger {
         {
             if(balance - amount >= 0)
                 return true;
-            else throw new BankException("잔액 부족");
+            throw new BankException("잔액 부족");
         }
         throw new IllegalArgumentException("음수인 값 입력");
     }
@@ -25,14 +26,13 @@ public class Judger {
     {
         return pw.equals(userAccount.getPw());
     }
-    public static boolean isPossibleToUsePoint(PointAccount account, long amount) throws BankException
+    public static boolean isPossibleToUsePoint(long balance, long amount, long currentPoint) throws BankException
     {
-        long currentPoint = account.getPoint();
         if (currentPoint <= 5000)
         {
             throw new BankException("포인트 부족");
         }
-            if (account.getBalance() - currentPoint >= amount)
+            if (balance - currentPoint - amount >= 0)
             {
                 return true;
             }
