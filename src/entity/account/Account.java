@@ -25,7 +25,10 @@ public class Account {
 
     public long getBalance() {
         return balance;
+    }
 
+    protected void setBalance(long amount) {
+        this.balance = amount;
     }
 
     public boolean deposit(long amount, String pw) throws IOException {
@@ -58,7 +61,7 @@ public class Account {
             if (Judger.isPossibleToWithdraw(balance, amount)) {
                 balance -= amount;
             }
-        } catch (BalanceException | IllegalArgumentException exception) {
+        } catch (BankException | IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
         return true;
