@@ -2,7 +2,7 @@ package controller;
 
 import java.io.*;
 
-public class Serializer <T> {
+public class Serializer<T> {
     /*
     동적 타입 캐스팅을 위한 제네릭 문법 사용.
 
@@ -27,6 +27,12 @@ public class Serializer <T> {
 
             oos.writeObject(
                     targetObject
+            );
+
+        } catch (NotSerializableException NSE) {
+            Printer.print(
+                    this.targetObjectType.getName() + " 클래스는 Serializable을 상속받지 않았습니다.\n" +
+                    "해당 메소드는 Serializable한 객체만 사용가능합니다."
             );
 
         } catch (IOException IOE) {
