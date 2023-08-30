@@ -11,6 +11,9 @@ public class PointAccount extends Account{
     }
 
     protected boolean IsPossibleToUsePoint(long amount){ }
+    public long getPoint() {
+        return point;
+    }
     public void setPoint(long point){
         this.point = point;
     }
