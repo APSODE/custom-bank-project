@@ -105,7 +105,14 @@ public class MinusAccount extends Account {
     }
 
     public void revolving() {
-        // 현재 기능 미완성
+        // 상환일을 다음달로 변경
+        this.repaymentDateTime = this.repaymentDateTime.plusMonths(1);
+
+        // 남은 대출액에 이자를 더함.
+        this.loan += this.interest;
+
+        // 이자 재설정
+        this.interest = (long) (this.loan * this.rate);
     }
 
     public long getCredit() {
