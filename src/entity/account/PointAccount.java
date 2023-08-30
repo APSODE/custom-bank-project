@@ -1,6 +1,6 @@
 package entity.account;
 
-import controller.BankException;
+import controller.Exceptions.PointException;
 import entity.user.UserAccount;
 import controller.Judger;
 
@@ -22,7 +22,7 @@ public class PointAccount extends Account {
         return true;
     }
 
-    public boolean usePoints(long point, long balance, long amount) throws BankException {
+    public boolean usePoints(long point, long balance, long amount) throws PointException {
         if (Judger.isPossibleToUsePoint(balance, amount,point)){
             if (amount <= point)
                 point -= amount;
