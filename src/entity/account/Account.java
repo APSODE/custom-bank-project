@@ -1,13 +1,13 @@
 package entity.account;
 
+import controller.Exceptions.BalanceException;
 import controller.Judger;
 import controller.Printer;
 import entity.user.UserAccount;
-import controller.Printer;
 import controller.Inputter;
-import entity.user.UserAccount;
+
 import java.io.IOException;
-import controller.BankException;
+import controller.Exceptions.BalanceException;
 
 public class Account {
 
@@ -56,7 +56,7 @@ public class Account {
             if (Judger.isPossibleToWithdraw(balance, amount)) {
                 balance -= amount;
             }
-        } catch (BankException | IllegalArgumentException exception) {
+        } catch (BalanceException | IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
         return true;
