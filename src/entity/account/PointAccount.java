@@ -17,16 +17,20 @@ public class PointAccount extends Account {
 
     public boolean earnPoints(long amount) {
         if (Judger.isPossibleToDeposit(amount)) {
-            point += (long) (amount * 0.03);
+            this.point += (long) (amount * 0.03);
         }
         return true;
     }
 
-    public boolean usePoints(long point, long balance, long amount) throws PointException {
-        if (Judger.isPossibleToUsePoint(balance, amount,point)){
-            if (amount <= point)
-                point -= amount;
-            else balance += (point - amount);
+    public boolean usePoints(long amount) throws PointException {
+        if (Judger.isPossibleToUsePoint(this.getBalance(), amount, this.point)){
+            if (amount <= this.point) {
+                this.point -= amount;
+
+            } else {
+                this.setBalance(this.getBalance() + this.point - amount);
+
+            }
         }
         return true;
     }
