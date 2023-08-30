@@ -20,6 +20,12 @@ public class Account {
         this.limit = 0;  // 생성자 파라미터로 입력을 받지 않으므로 기본값 0으로 세팅 (추후 변경 가능)
     }
 
+    public static Account CreateObject(UserAccount userAccount) {
+        return new Account(
+                userAccount
+        );
+    }
+
     public long getBalance() {
         return balance;
     }
