@@ -26,13 +26,13 @@ public class Judger {
     {
         return pw.equals(userAccount.getPw());
     }
-    public static boolean isPossibleToUsePoint(long balance, long amount, long currentPoint) throws BankException
+    public static boolean isPossibleToUsePoint(long balance, long amount, long point) throws BankException
     {
-        if (currentPoint <= 5000)
+        if (point <= 5000)
         {
             throw new BankException("포인트 부족");
         }
-            if (balance - currentPoint - amount >= 0)
+            if (balance - point - amount >= 0)
             {
                 return true;
             }
