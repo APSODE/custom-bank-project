@@ -23,7 +23,7 @@ public class PointAccount extends Account {
     }
 
     public boolean usePoints(long point, long balance, long amount) throws BankException {
-        if (Judger.isPossibleToUsePoint(balance, amount,point){
+        if (Judger.isPossibleToUsePoint(balance, amount,point)){
             if (amount <= point)
                 point -= amount;
             else balance += (point - amount);
