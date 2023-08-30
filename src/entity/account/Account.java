@@ -55,13 +55,13 @@ public class Account {
         return true;
     }
 
-    public boolean withdraw(long amount, String pw) throws IOException {
+    public boolean withdraw(long amount, String pw) throws BalanceException, IOException {
         Printer.print("출금할 입력을 입력해 주세요.");
         try {
             if (Judger.isPossibleToWithdraw(balance, amount)) {
                 balance -= amount;
             }
-        } catch (BankException | IllegalArgumentException exception) {
+        } catch (BalanceException | IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
         return true;
@@ -86,7 +86,7 @@ public class Account {
     }
 
     // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
-    protected boolean withdrawByRepayment(long amount) {
+    protected boolean withdrawByRepayment(long amount) throws BalanceException{
         if (Judger.isPossibleToWithdraw(this.balance, amount)) {
             this.balance -= amount;
             return true;
