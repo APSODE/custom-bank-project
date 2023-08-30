@@ -25,6 +25,7 @@ public class Account {
         return balance;
 
     }
+
     public boolean deposit(long amount, String pw) throws IOException {
         Printer.print("비밀번호를 입력하세요.");
         String password = Inputter.inpString();
@@ -48,19 +49,18 @@ public class Account {
 
         return true;
     }
+
     public boolean withdraw(long amount, String pw) throws IOException {
         Printer.print("출금할 입력을 입력해 주세요.");
-        try{
-            if(Judger.isPossibleToWithdraw(balance,amount)) {
+        try {
+            if (Judger.isPossibleToWithdraw(balance, amount)) {
                 balance -= amount;
             }
+        } catch (BalanceException | IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
         }
-        catch (BalanceException|IllegalArgumentException exception){
-                System.out.println(exception.getMessage());
-            }
         return true;
-        }
-
+    }
 
 
     // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
@@ -94,12 +94,16 @@ public class Account {
     public long getLimit() {
         return limit;
     }
-    public void setLimit(long limit){
+
+    public void setLimit(long limit) {
         this.limit = limit;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "balance : " + this.balance + "\n" +
+                "limit: " + this.limit + "\n";
+
     }
+
 }
