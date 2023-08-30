@@ -1,7 +1,5 @@
 package entity.account;
 
-import entity.user.UserAccount;
-
 import java.time.LocalDate;
 
 public class InstallmentAccount extends Account {
