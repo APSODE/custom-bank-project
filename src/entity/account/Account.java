@@ -7,7 +7,7 @@ import controller.Printer;
 import controller.Inputter;
 import entity.user.UserAccount;
 import java.io.IOException;
-import controller.BalanceException;
+import controller.BankException;
 
 public class Account {
 
@@ -56,7 +56,7 @@ public class Account {
             if (Judger.isPossibleToWithdraw(balance, amount)) {
                 balance -= amount;
             }
-        } catch (BalanceException | IllegalArgumentException exception) {
+        } catch (BankException | IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
         return true;

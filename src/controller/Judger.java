@@ -1,18 +1,19 @@
 package controller;
 
+import entity.account.PointAccount;
 import entity.user.User;
 import entity.user.UserAccount;
 
 import java.util.concurrent.ExecutionException;
 
 public class Judger {
-    public static boolean isPossibleToWithdraw(long balance, long amount) throws BalanceException
+    public static boolean isPossibleToWithdraw(long balance, long amount) throws BankException
     {
         if (amount > 0)
         {
             if(balance - amount >= 0)
                 return true;
-            else throw new BalanceException("잔액 부족");
+            else throw new BankException("잔액 부족");
         }
         throw new IllegalArgumentException("음수인 값 입력");
     }
@@ -23,5 +24,8 @@ public class Judger {
     public static boolean isRightPw(UserAccount userAccount, String pw)
     {
         return pw.equals(userAccount.getPw());
+    }
+    public static boolean isPossibleToUsePoint(PointAccount account, long amount)
+    {
     }
 }
