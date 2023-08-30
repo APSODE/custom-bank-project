@@ -10,14 +10,14 @@ public class InstallmentAccount extends Account {
 
     SavingAccount AccountToSend = null;
 
-    public InstallmentAccount(LocalDate dueDate, float rate, entity.user.UserAccount userAccount)
+    public InstallmentAccount(LocalDate dueDate, double rate, entity.user.UserAccount userAccount)
     {
         super(userAccount);
         this.dueDate = dueDate;
         this.rate = rate;
     }
 
-    public InstallmentAccount(LocalDate dueDate, float rate, entity.user.UserAccount userAccount, SavingAccount AccountToSend)
+    public InstallmentAccount(LocalDate dueDate, double rate, entity.user.UserAccount userAccount, SavingAccount AccountToSend)
     {
         super(userAccount);
         this.AccountToSend = AccountToSend;
