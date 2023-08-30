@@ -31,6 +31,10 @@ public class Account {
         this.balance = amount;
     }
 
+    protected UserAccount getUserAccount() {
+        return this.userAccount;
+    }
+
     public boolean deposit(long amount, String pw) throws IOException {
         Printer.print("비밀번호를 입력하세요.");
         String password = Inputter.inpString();
