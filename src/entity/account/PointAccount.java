@@ -10,9 +10,7 @@ public class PointAccount extends Account{
         super(userAccount);
     }
 
-    protected boolean IsPossibleToUsePoint(long amount){
-        return true;
-    }
+    protected boolean IsPossibleToUsePoint(long amount){ }
     public void setPoint(long point){
         this.point = point;
     }
