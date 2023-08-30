@@ -42,40 +42,47 @@ public class MinusAccount extends Account {
         return new MinusAccount(userAccount);
     }
 
-    public boolean isPossibleRepayment(long amount) {
-        // 1회 상환한도인 maxRepayment값보다 현재 상환 시도 중인 상환액인 amount가 작거나 같아야함.
-        return this.maxRepayment >= amount;
-    }
+    public boolean interimRepayment(long amount, String pw) throws IOException {
+        if (!Judger.isRightPw(super.getUserAccount(), pw)) {
+            Printer.print("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
+            return false;
+        }
 
-    public boolean isLargerThanLoan(long amount) {
-        // 현재 시도 중인 상환을 기준으로 상환액이 총 대출액을 초과했는지 확인
-        return this.loan > amount;
-    }
+        if (!Judger.isSmallerThanMaxRepayment(this.maxRepayment, amount)) {
+            Printer.print("1회 상환한도를 초과하는 상환액입니다. 상환액을 재입력하여주십시오.");
+            return false;
+        }
 
-    public boolean repayment(long amount) {
-        if (isPossibleRepayment(amount)) {
-            if (isLargerThanLoan(amount)) {
-                this.loan -= amount;
-            } else {
-                // 대출액을 초과한 상환액
-                long repaymentRemainder = amount - this.loan;
+        // 상환을 진행한 금액만큼 계좌에서 차감
+        // 해당 라인은 boolean 리턴으로 정상작동 여부를 확인가능
+        // 따라서 정상작동 검증 로직이 추가가 필요한경우 이를 이용하여야함.
+        try {
+            super.withdraw(amount, pw);
 
-                // loan이 amount보다 작으므로 연산을 진행하지 않고 0으로 설정
-                this.loan = 0;
+        } catch (BalanceException BE) {
+            Printer.print(BE.getMessage());
+            return false;
+        }
 
-                // 남은 상환액을 계좌에 다시 추가한다.
-                // 해당 라인은 boolean 리턴으로 정상작동 여부를 확인가능
-                // 따라서 정상작동 검증 로직이 추가가 필요한경우 이를 이용하여야함.
-                super.depositByOverRepayment(repaymentRemainder);
+        if (Judger.isLargerThanLoan(this.loan, amount)) {
+            // 대출액을 초과한 상환액
+            long repaymentRemainder = amount - this.loan;
 
-            }
+            // loan이 amount보다 작으므로 연산을 진행하지 않고 0으로 설정
+            this.loan = 0;
 
-            // 상환을 진행한 금액만큼 계좌에서 차감
+            // 남은 상환액을 계좌에 다시 추가한다.
             // 해당 라인은 boolean 리턴으로 정상작동 여부를 확인가능
             // 따라서 정상작동 검증 로직이 추가가 필요한경우 이를 이용하여야함.
-            super.withdrawByRepayment(amount);
+            super.deposit(repaymentRemainder, pw);
 
-            return true;
+        } else {
+            this.loan -= amount;
+
+        }
+
+        return true;
+    }
 
         } else {
             return false;
