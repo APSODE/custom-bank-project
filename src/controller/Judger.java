@@ -1,6 +1,7 @@
 package controller;
 
-import controller.Exceptions.*;
+import controller.Exceptions.BalanceException;
+import controller.Exceptions.PointException;
 import entity.user.UserAccount;
 
 public class Judger {
