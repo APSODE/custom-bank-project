@@ -1,6 +1,12 @@
 package entity.account;
 
+import controller.Exceptions.BalanceException;
+import controller.Judger;
+import controller.Printer;
 import entity.user.UserAccount;
+
+import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class MinusAccount extends Account {
     private long credit;
@@ -8,6 +14,8 @@ public class MinusAccount extends Account {
     private long maxRepayment;
     private long interest;
     private double rate;
+    private LocalDateTime prevWorkDateTime;  // 여기에선 필요없지 않나..?
+    private LocalDateTime repaymentDateTime;
 
     public MinusAccount(UserAccount userAccount) {
         super(userAccount);
@@ -153,6 +161,18 @@ public class MinusAccount extends Account {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public LocalDateTime getPrevWorkDateTime() {
+        return this.prevWorkDateTime;
+    }
+
+    public void setPrevWorkDateTime() {
+        this.prevWorkDateTime = LocalDateTime.now();
+    }
+
+    public void setPrevWorkDateTime(LocalDateTime prevWorkDateTime) {
+        this.prevWorkDateTime = prevWorkDateTime;
     }
 
     @Override
