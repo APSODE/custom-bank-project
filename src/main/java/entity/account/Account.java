@@ -4,8 +4,8 @@ import controller.exceptions.BalanceException;
 import controller.Judger;
 import controller.Printer;
 import controller.exceptions.InvalidPasswordException;
+import controller.exceptions.NegativeAmountException;
 import entity.user.UserAccount;
-import controller.Inputter;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -39,84 +39,50 @@ public class Account implements Serializable {
     protected UserAccount getUserAccount() {
         return this.userAccount;
     }
-    public boolean deposit(long amount, String pw) throws IOException {
+
+    public boolean deposit(long amount, String pw) throws InvalidPasswordException, NegativeAmountException{
+
+        if (!Judger.isRightPw(userAccount, pw)) {
+            // Printer.print("비밀번호 오류");
+            // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
+            throw new InvalidPasswordException("비밀번호 오류");
+        }
+
+        if (!Judger.isPossibleToDeposit(amount)) {
+            // Printer.print("음수 입력");
+            // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
+            throw new NegativeAmountException("음수 입력");
+
+        }
+
+        balance += amount;
+        return true;
+    }
+
+    public boolean withdraw (long amount, String pw) throws BalanceException, IllegalArgumentException{
         try {
-            if (!Judger.isRightPw(userAccount, pw)) {
-                Printer.print("비밀번호 오류");
-                return false;
+            if (Judger.isPossibleToWithdraw(balance, amount)) {
+                balance -= amount;
             }
-
-            if (!Judger.isPossibleToDeposit(amount)) {
-                Printer.print("음수 입력");
-                return false;
-            }
-
-            balance += amount;
-            return true;
-        } catch (InvalidPasswordException exception) {
-            Printer.print("비밀번호 오류");
-        } catch (IllegalArgumentException exception) {
-            Printer.print("음수 입력");
-        } catch (IOException exception) {
-            Printer.print("IO 오류");
+        } catch (BalanceException | IllegalArgumentException exception) {
+            Printer.print(exception.getMessage());
         }
-        return false;
+        return true;
     }
 
-        public boolean withdraw (long amount, String pw) throws BalanceException, IllegalArgumentException, IOException
-        {
-            try {
-                if (Judger.isPossibleToWithdraw(balance, amount)) {
-                    balance -= amount;
-                }
-            } catch (BalanceException | IllegalArgumentException exception) {
-                Printer.print(exception.getMessage());
-            }
-            return true;
-        }
+    public long getLimit () {
+        return limit;
+    }
 
+    public void setLimit ( long limit){
+        this.limit = limit;
+    }
 
-        // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
-        protected boolean depositByOverRepayment ( long amount){
-            int errorCount = 0;
-            try {
-                this.balance += amount;
-
-            } catch (Exception error) {
-                errorCount++;
-
-                // Printer 클래스의 print메소드를 static으로 수정 후 해당 라인을 Printer클래스의 print메소드로 교체 진행
-                Printer.print("알 수 없는 에러 발생.");
-
-            } finally {
-                return errorCount == 0;
-            }
-        }
-
-        // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
-        protected boolean withdrawByRepayment ( long amount) throws BalanceException {
-            if (Judger.isPossibleToWithdraw(this.balance, amount)) {
-                this.balance -= amount;
-                return true;
-
-            } else {
-                return false;
-            }
-        }
-
-        public long getLimit () {
-            return limit;
-        }
-
-        public void setLimit ( long limit){
-            this.limit = limit;
-        }
-
-        @Override
-        public String toString () {
-            return "balance : " + this.balance + "\n" +
-                    "limit: " + this.limit + "\n";
-
-        }
+    @Override
+    public String toString () {
+        return "balance : " + this.balance + "\n" +
+                "limit: " + this.limit + "\n";
 
     }
+
+}
