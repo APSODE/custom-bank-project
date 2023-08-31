@@ -1,8 +1,8 @@
 package boundary;
 
+import controller.Printer;
 import controller.Serializer;
-import controller.exceptions.AgeException;
-import controller.exceptions.PhoneNumberException;
+import controller.exceptions.*;
 import entity.account.*;
 import entity.user.User;
 import entity.user.UserAccount;
@@ -29,7 +29,7 @@ public class Menu {
         return true;
     }
 
-    public void accountInquiry(String id, String pw, String type) throws IOException {
+    public void accountInquiry(String id, String pw, String type) throws IOException, NoTypeException {
         if (type.equals("Account"))
         {
             String fileName = "\\account\\Account"+id+".cbp";
@@ -40,26 +40,54 @@ public class Menu {
         {
             String fileName = "\\account\\Installment"+id+".cbp";
             Serializer<InstallmentAccount> serializer = new Serializer<InstallmentAccount>(InstallmentAccount.class);
-            selectAccount = (InstallmentAccount) serializer.loadObject(fileName);
+            selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Minus"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
             Serializer<MinusAccount> serializer = new Serializer<MinusAccount>(MinusAccount.class);
-            selectAccount = (MinusAccount) serializer.loadObject(fileName);
+            selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Point"))
         {
             String fileName = "\\account\\Point"+id+".cbp";
             Serializer<PointAccount> serializer = new Serializer<PointAccount>(PointAccount.class);
-            selectAccount = (PointAccount) serializer.loadObject(fileName);
+            selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Saving"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
             Serializer<SavingAccount> serializer = new Serializer<SavingAccount>(SavingAccount.class);
-            selectAccount = (SavingAccount) serializer.loadObject(fileName);
+            selectAccount = serializer.loadObject(fileName);
         }
-
+        else {
+            throw new NoTypeException("존재하지 않는 형식입니다.");
+        }
     }
+
+    public void accountDeposit(long amount, String pw)
+    {
+        try {
+            selectAccount.deposit(amount, pw);
+        }
+        catch(InvalidPasswordException e)
+        {
+            Printer.print(e.getMessage());
+        }
+    }
+    public void accountWithdraw(long amount, String pw)
+    {
+        try {
+            selectAccount.withdraw(amount, pw);
+        }
+        catch (InvalidPasswordException e)
+        {
+            Printer.print(e.getMessage());
+        }
+        catch (BalanceException e)
+        {
+            Printer.print(e.getMessage());
+        }
+    }
+
 }
