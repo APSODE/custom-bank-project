@@ -2,6 +2,8 @@ package entity.account;
 
 import controller.Judger;
 import controller.Printer;
+import controller.exceptions.BalanceException;
+import controller.exceptions.OverWithrawLimitException;
 import entity.user.UserAccount;
 
 import java.io.IOException;
@@ -26,13 +28,14 @@ public class SavingAccount extends Account implements Serializable {
         this.rate = rate;
     }
 
-    public boolean setWithdrawLimit(long limit) throws IOException {
-        if (!Judger.isSmallerThanAmount(limit, long amount)){
-            Printer.print("1회 출금액을 초과하는 출금액입니다. 출금액을 재입력하여주십시오.");
+    public boolean withdrawWithLimit(long amount, String pw) throws OverWithrawLimitException, BalanceException, IOException{
+        if (!Judger.isSmallerThanAmount(this.getLimit(), amount)) {
+            // 이체금액 제한 초과시
+            throw new OverWithrawLimitException("제한금액 초과");
 
         }
-        return false;
 
+        return super.withdraw(amount, pw);
     }
 }
 
