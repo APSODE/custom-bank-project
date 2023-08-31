@@ -8,9 +8,10 @@ import controller.Printer;
 import entity.user.UserAccount;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class MinusAccount extends Account {
+public class MinusAccount extends Account implements Serializable {
     private long credit;
     private long loan;
     private long maxRepayment;

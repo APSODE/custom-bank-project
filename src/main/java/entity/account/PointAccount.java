@@ -4,7 +4,9 @@ import controller.exceptions.PointException;
 import entity.user.UserAccount;
 import controller.Judger;
 
-public class PointAccount extends Account {
+import java.io.Serializable;
+
+public class PointAccount extends Account implements Serializable {
 
     private long point;
     public PointAccount(UserAccount userAccount) {

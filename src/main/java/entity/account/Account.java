@@ -7,8 +7,9 @@ import entity.user.UserAccount;
 import controller.Inputter;
 
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Account {
+public class Account implements Serializable {
 
     private UserAccount userAccount;
     private long balance;

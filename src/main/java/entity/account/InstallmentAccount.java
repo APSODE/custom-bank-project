@@ -1,8 +1,9 @@
 package entity.account;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class InstallmentAccount extends Account {
+public class InstallmentAccount extends Account implements Serializable {
     private double rate;
     private LocalDate dueDate;
 
