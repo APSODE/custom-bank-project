@@ -39,6 +39,8 @@ public class Account {
     }
 
     public boolean deposit(long amount, String pw) throws IOException {
+        // 유저와 상호작용을 이루는 부분은 entity에 작성되는 것이 아닌 boundary에 존재하여야함.
+        // 여기서는 메소드를 호출하여 기능을 수행하는 코드만 작성되어야함.
         Printer.print("비밀번호를 입력하세요.");
         String password = Inputter.inpString();
         if (Judger.isRightPw(userAccount, password)) {
