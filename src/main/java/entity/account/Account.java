@@ -53,6 +53,8 @@ public class Account implements Serializable {
 
             balance += amount;
             return true;
+        } catch (InvalidPasswordException exception) {
+            Printer.print("비밀번호 오류");
         } catch (IllegalArgumentException exception) {
             Printer.print("음수 입력");
         } catch (IOException exception) {
