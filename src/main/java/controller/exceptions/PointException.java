@@ -1,4 +1,4 @@
-package controller.Exceptions;
+package controller.exceptions;
 
 public class PointException extends Exception{
     public PointException(String message)
