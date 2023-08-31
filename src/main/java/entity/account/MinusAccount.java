@@ -1,6 +1,8 @@
 package entity.account;
 
-import controller.Exceptions.BalanceException;
+import controller.exceptions.BalanceException;
+import controller.exceptions.InvalidPasswordException;
+import controller.exceptions.RepaymentException;
 import controller.Judger;
 import controller.Printer;
 import entity.user.UserAccount;
@@ -50,15 +52,14 @@ public class MinusAccount extends Account {
         return new MinusAccount(userAccount);
     }
 
-    public boolean interimRepayment(long amount, String pw) throws IOException {
+    // IOException은 Account 클래스의 예외 발생 부분을 수정하면 throws에서 제거
+    public boolean interimRepayment(long amount, String pw) throws RepaymentException, InvalidPasswordException, IOException{
         if (!Judger.isRightPw(super.getUserAccount(), pw)) {
-            Printer.print("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
-            return false;
+            throw new InvalidPasswordException("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
         }
 
         if (!Judger.isSmallerThanMaxRepayment(this.maxRepayment, amount)) {
-            Printer.print("1회 상환한도를 초과하는 상환액입니다. 상환액을 재입력하여주십시오.");
-            return false;
+            throw new RepaymentException("1회 상환한도를 초과하는 상환액입니다. 상환액을 재입력하여주십시오.");
         }
 
         // 상환을 진행한 금액만큼 계좌에서 차감
@@ -92,10 +93,9 @@ public class MinusAccount extends Account {
         return true;
     }
 
-    public boolean repayment(String pw) throws IOException{
+    public boolean repayment(String pw) throws RepaymentException, InvalidPasswordException, IOException{
         if (!Judger.isRightPw(super.getUserAccount(), pw)) {
-            Printer.print("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
-            return false;
+            throw new InvalidPasswordException("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
         }
 
         if (Judger.isPossibleRepayment(this)) {
@@ -107,8 +107,7 @@ public class MinusAccount extends Account {
             return true;
 
         } else {
-            Printer.print("상환금액 보다 계좌 잔액이 부족합니다.");
-            return false;
+            throw new RepaymentException("상환금액 보다 계좌 잔액이 부족합니다.");
         }
     }
 
