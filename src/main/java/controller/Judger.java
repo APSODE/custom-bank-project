@@ -1,7 +1,7 @@
 package controller;
 
-import controller.Exceptions.BalanceException;
-import controller.Exceptions.PointException;
+import controller.exceptions.BalanceException;
+import controller.exceptions.PointException;
 import entity.account.MinusAccount;
 import entity.user.UserAccount;
 
@@ -21,6 +21,14 @@ public class Judger {
     }
     public static boolean isRightPw(UserAccount userAccount, String pw) {
         return pw.equals(userAccount.getPw());
+    }
+
+    public static boolean isOverThanMinUsePoint(long point) {
+        return point <= 5000;
+    }
+
+    public static boolean isShortOfBalance(long balance, long amount, long point) {
+        return (balance - point - amount) >= 0;
     }
 
     public static boolean isPossibleToUsePoint(long balance, long amount, long point) throws PointException
