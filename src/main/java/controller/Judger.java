@@ -60,4 +60,8 @@ public class Judger {
 
         return currentBalance >= currentTotalLoan;
     }
+    public static boolean isSmallerThanAmount(long limit, long amount){
+        return limit>=amount;
+    }
+
 }
