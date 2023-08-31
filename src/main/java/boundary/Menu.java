@@ -1,7 +1,9 @@
 package boundary;
 
+import controller.Printer;
 import controller.Serializer;
 import controller.exceptions.AgeException;
+import controller.exceptions.InvalidPasswordException;
 import controller.exceptions.NoTypeException;
 import controller.exceptions.PhoneNumberException;
 import entity.account.*;
@@ -63,6 +65,17 @@ public class Menu {
         }
         else {
             throw new NoTypeException("존재하지 않는 형식입니다.");
+        }
+    }
+
+    public void accountDeposit(long amount, String pw)
+    {
+        try {
+            selectAccount.deposit(amount, pw);
+        }
+        catch(InvalidPasswordException e)
+        {
+            Printer.print("비밀번호가 틀렸습니다.");
         }
     }
 }

@@ -9,19 +9,38 @@ public class Printer {
     static OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
     static BufferedWriter bw = new BufferedWriter(outputStreamWriter);
 
-    public static void print(String value) throws IOException
+    public static void print(String value)
     {
-        bw.write(value);
-        bw.flush();
+        try {
+            bw.write(value);
+            bw.flush();
+        }
+        catch (IOException e)
+        {
+            print("입출력이 잘못되었습니다.");
+        }
     }
-    public static void print(long value) throws IOException
+
+    public static void print(long value)
     {
-        bw.write((int) value);
-        bw.flush();
+        try {
+            bw.write((int) value);
+            bw.flush();
+        }
+        catch (IOException e)
+        {
+            print("입출력이 잘못되었습니다.");
+        }
     }
-    public static void print(int value) throws IOException
+    public static void print(int value)
     {
-        bw.write(value);
-        bw.flush();
+        try {
+            bw.write(value);
+            bw.flush();
+        }
+        catch (IOException e)
+        {
+            print("입출력이 잘못되었습니다.");
+        }
     }
 }
