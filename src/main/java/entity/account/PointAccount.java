@@ -25,22 +25,7 @@ public class PointAccount extends Account implements Serializable {
         return true;
     }
 
-    public boolean usePoints(long amount) throws PointException {
-        // Exception을 발생시킬때 Judger에서 발생시키는 것이 아닌 해당 메소드 안에서 발생시키는 것이 좋음
-        if (Judger.isPossibleToUsePoint(this.getBalance(), amount, this.point)){
-            if (amount <= this.point) {
-                this.point -= amount;
-
-            } else {
-                this.setBalance(this.getBalance() + this.point - amount);
-
-            }
-        }
-        return true;
-    }
-
-    // usePoints 리팩토링 예시 코드
-    private boolean exampleUsePointsMethod(long amount) throws PointException {
+       private boolean exampleUsePointsMethod(long amount) throws PointException {
         if (!Judger.isOverThanMinUsePoint(this.point)) {
             throw new PointException("포인트 사용은 5000포인트부터 사용이 가능합니다.");
         }

@@ -3,6 +3,7 @@ package entity.account;
 import controller.exceptions.BalanceException;
 import controller.Judger;
 import controller.Printer;
+import controller.exceptions.InvalidPasswordException;
 import entity.user.UserAccount;
 import controller.Inputter;
 
@@ -38,87 +39,82 @@ public class Account implements Serializable {
     protected UserAccount getUserAccount() {
         return this.userAccount;
     }
-
     public boolean deposit(long amount, String pw) throws IOException {
-        // 유저와 상호작용을 이루는 부분은 entity에 작성되는 것이 아닌 boundary에 존재하여야함.
-        // 여기서는 메소드를 호출하여 입금기능을 수행하는 코드만 작성되어야함.
-        Printer.print("비밀번호를 입력하세요.");
-        String password = Inputter.inpString();
-        if (Judger.isRightPw(userAccount, password)) {
-            Printer.print("비밀번호가 확인되었습니다.");
-        } else {
-            Printer.print("비밀번호가 일치하지 않습니다. 다시 입력해주세요.");
-        }
-
-        Printer.print("잔액을 확인하시겠습니까?(y/n)");
-        String answer = Inputter.inpString();
-        if (answer == "y") {
-            Printer.print(balance);
-        }
-        Printer.print("입금할 금액을 입력해 주세요.");
-        if (Judger.isPossibleToDeposit(amount)) {
-            balance += amount;
-        } else {
-            Printer.print("0보다 작은 금액은 입금할 수 없습니다.");
-        }
-
-        return true;
-    }
-
-    public boolean withdraw(long amount, String pw) throws BalanceException, IOException {
-        Printer.print("출금할 입력을 입력해 주세요.");
         try {
-            if (Judger.isPossibleToWithdraw(balance, amount)) {
-                balance -= amount;
+            if (!Judger.isRightPw(userAccount, pw)) {
+                Printer.print("비밀번호 오류");
+                return false;
             }
-        } catch (BalanceException | IllegalArgumentException exception) {
-            System.out.println(exception.getMessage());
-        }
-        return true;
-    }
 
+            if (!Judger.isPossibleToDeposit(amount)) {
+                Printer.print("음수 입력");
+                return false;
+            }
 
-    // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
-    protected boolean depositByOverRepayment(long amount) {
-        int errorCount = 0;
-        try {
-            this.balance += amount;
-
-        } catch (Exception error) {
-            errorCount++;
-
-            // Printer 클래스의 print메소드를 static으로 수정 후 해당 라인을 Printer클래스의 print메소드로 교체 진행
-            Printer.print("알 수 없는 에러 발생.");
-
-        } finally {
-            return errorCount == 0;
-        }
-    }
-
-    // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
-    protected boolean withdrawByRepayment(long amount) throws BalanceException{
-        if (Judger.isPossibleToWithdraw(this.balance, amount)) {
-            this.balance -= amount;
+            balance += amount;
             return true;
-
-        } else {
-            return false;
+        } catch (IllegalArgumentException exception) {
+            Printer.print("음수 입력");
+        } catch (IOException exception) {
+            Printer.print("IO 오류");
         }
+        return false;
     }
 
-    public long getLimit() {
-        return limit;
+        public boolean withdraw (long amount, String pw) throws BalanceException, IllegalArgumentException, IOException
+        {
+            try {
+                if (Judger.isPossibleToWithdraw(balance, amount)) {
+                    balance -= amount;
+                }
+            } catch (BalanceException | IllegalArgumentException exception) {
+                Printer.print(exception.getMessage());
+            }
+            return true;
+        }
+
+
+        // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
+        protected boolean depositByOverRepayment ( long amount){
+            int errorCount = 0;
+            try {
+                this.balance += amount;
+
+            } catch (Exception error) {
+                errorCount++;
+
+                // Printer 클래스의 print메소드를 static으로 수정 후 해당 라인을 Printer클래스의 print메소드로 교체 진행
+                Printer.print("알 수 없는 에러 발생.");
+
+            } finally {
+                return errorCount == 0;
+            }
+        }
+
+        // MinusAccount에서 사용할 입출금 메소드 ( MinusAccount에도 비밀번호 인증을 사용한다면 해당 메소드 제거 )
+        protected boolean withdrawByRepayment ( long amount) throws BalanceException {
+            if (Judger.isPossibleToWithdraw(this.balance, amount)) {
+                this.balance -= amount;
+                return true;
+
+            } else {
+                return false;
+            }
+        }
+
+        public long getLimit () {
+            return limit;
+        }
+
+        public void setLimit ( long limit){
+            this.limit = limit;
+        }
+
+        @Override
+        public String toString () {
+            return "balance : " + this.balance + "\n" +
+                    "limit: " + this.limit + "\n";
+
+        }
+
     }
-
-    public void setLimit(long limit) {
-        this.limit = limit;
-    }
-
-    @Override
-    public String toString() {
-        return "balance : " + this.balance + "\n" +
-                "limit: " + this.limit + "\n";
-
-    }
-
-}
