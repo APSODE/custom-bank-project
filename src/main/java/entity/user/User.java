@@ -7,15 +7,17 @@ public class User implements Serializable {
     private int age;
     private String phoneNumber;
 
-    public User(String name, int age) {
+    public User(String name, int age, String phoneNumber) {
         this.name = name;
         this.age = age;
+        this.phoneNumber = phoneNumber;
     }
 
-    public static User CreateObject(String name, int age) {
+    public static User CreateObject(String name, int age, String phoneNumber) {
         return new User(
                 name,
-                age
+                age,
+                phoneNumber
         );
     }
 
