@@ -14,13 +14,23 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.jodatime.api.Assertions.assertThat;
 
 class SerializerTest {
+
+    @DisplayName("Serializable 확인")
+    @Test
+    void SerializableCheck() {
+
+    }
+
+
+
     @DisplayName("객체 저장 테스트")
     @Test
     void saveObject() throws IOException {
         //given
         User testUser = User.CreateObject(
                 "test user",
-                20
+                20,
+                "test phone number"
         );
 
         UserAccount testUserAccount = UserAccount.CreateObject(
@@ -36,6 +46,7 @@ class SerializerTest {
         MinusAccount testMinusAccount = MinusAccount.CreateObject(
                 testUserAccount
         );
+
 
         //when
         Serializer<User> userSerializer = new Serializer<>(User.class);
