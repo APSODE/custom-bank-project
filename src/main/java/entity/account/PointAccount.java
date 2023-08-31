@@ -20,9 +20,8 @@ public class PointAccount extends Account implements Serializable {
     public boolean earnPoints(long amount) {
         // 포인트 적립 과정에서 입금이랑 어떤관계가 있었는지 모르겠음
         // 해당 if문 안의 조건식이 false여서 포인트 적립이 되지 않아도 해당 메소드는 true를 리턴함
-        if (Judger.isPossibleToWithdraw(long balance,amount)) {
-            this.point += (long) (amount * 0.03);
-        }
+        this.point += (long) (amount * 0.03);
+
         return true;
     }
 
