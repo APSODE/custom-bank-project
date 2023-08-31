@@ -2,10 +2,7 @@ package boundary;
 
 import controller.Printer;
 import controller.Serializer;
-import controller.exceptions.AgeException;
-import controller.exceptions.InvalidPasswordException;
-import controller.exceptions.NoTypeException;
-import controller.exceptions.PhoneNumberException;
+import controller.exceptions.*;
 import entity.account.*;
 import entity.user.User;
 import entity.user.UserAccount;
@@ -75,7 +72,22 @@ public class Menu {
         }
         catch(InvalidPasswordException e)
         {
-            Printer.print("비밀번호가 틀렸습니다.");
+            Printer.print(e.getMessage());
         }
     }
+    public void accountWithdraw(long amount, String pw)
+    {
+        try {
+            selectAccount.withdraw(amount, pw);
+        }
+        catch (InvalidPasswordException e)
+        {
+            Printer.print(e.getMessage());
+        }
+        catch (BalanceException e)
+        {
+            Printer.print(e.getMessage());
+        }
+    }
+
 }
