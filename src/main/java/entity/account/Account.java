@@ -85,7 +85,7 @@ public class Account {
             errorCount++;
 
             // Printer 클래스의 print메소드를 static으로 수정 후 해당 라인을 Printer클래스의 print메소드로 교체 진행
-            System.out.println("알 수 없는 에러 발생.");
+            Printer.print("알 수 없는 에러 발생.");
 
         } finally {
             return errorCount == 0;
