@@ -59,6 +59,7 @@ public class Account implements Serializable {
         return true;
     }
 
+    // 출금 메소드도 입금 메소드와 동일하게 Exception을 발생시키는 방식과 값 검증 과정의 수정이 필요함.
     public boolean withdraw (long amount, String pw) throws BalanceException, IllegalArgumentException{
         try {
             if (Judger.isPossibleToWithdraw(balance, amount)) {
