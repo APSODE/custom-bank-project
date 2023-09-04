@@ -1,9 +1,7 @@
 package entity.account;
 
-import controller.exceptions.BalanceException;
+import controller.exceptions.*;
 import controller.Judger;
-import controller.exceptions.InvalidPasswordException;
-import controller.exceptions.NegativeAmountException;
 import entity.user.UserAccount;
 
 import java.io.Serializable;
@@ -38,7 +36,7 @@ public class Account implements Serializable {
         return this.userAccount;
     }
 
-    public boolean deposit(long amount, String pw) throws InvalidPasswordException, NegativeAmountException{
+    public boolean deposit(long amount, String pw) throws InvalidPasswordException, NegativeAmountException, ZeroAmountException {
         if (!Judger.isRightPw(userAccount, pw)) {
             // Printer.print("비밀번호 오류");
             // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
@@ -48,6 +46,10 @@ public class Account implements Serializable {
         if (!Judger.isPositiveArgument(amount)) {
             // Printer.print("음수 입력");
             // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
+            if (Judger.isZeroAmount(amount)) {
+                throw new ZeroAmountException("입금액은 0원이 될 수 없습니다.");
+            }
+
             throw new NegativeAmountException("음수 입력");
 
         }
