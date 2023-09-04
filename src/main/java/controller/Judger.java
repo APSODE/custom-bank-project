@@ -5,6 +5,9 @@ import controller.exceptions.PointException;
 import entity.account.MinusAccount;
 import entity.user.UserAccount;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Judger {
     // 해당 메소드에서 Exception을 발생시키는 것이 아닌 해당 메소드를 사용하는 클래스에서 Exception을 발생시키도록 수정해여야 한다.
     public static boolean isPossibleToWithdraw(long balance, long amount) throws BalanceException {
@@ -65,5 +68,13 @@ public class Judger {
 
     public static boolean isSmallerThanAmount(long limit, long amount) {
         return limit >= amount;
+    }
+
+    public static boolean isValidPhoneNumber(String inputPhoneNumber) {
+        String phoneNumberRegex = "^01(?:0|1|[6-9])-(?:\\d{3}|\\d{4})-(?:\\d{4})$";
+        Pattern phoneNumberRegexPattern = Pattern.compile(phoneNumberRegex);
+        Matcher phoneNumberPatternMatcher = phoneNumberRegexPattern.matcher(inputPhoneNumber);
+
+        return phoneNumberPatternMatcher.matches();
     }
 }
