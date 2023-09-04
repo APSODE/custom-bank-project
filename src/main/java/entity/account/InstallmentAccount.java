@@ -59,17 +59,18 @@ public class InstallmentAccount extends Account implements Serializable {
         this.dueDate = dueDate;
     }
 
-    private void dueProcess(LocalDate today)
+    // 해당 객체 안에서 dueProcess메소드를 호출하는 코드가 존재하지 않으므로 해당 메소드를 사용하기위해서 public으로 접근제어자 변경
+    public void dueProcess(LocalDate today)
     {
         if (today.isAfter(dueDate))
         {
             if(AccountToSend != null)
             {
-                AccountToSend.setBalance(super.getBalance()+this.getBalance());
+                AccountToSend.setBalance(super.getBalance() + this.getBalance());
             }
             else
             {
-                this.setBalance(this.getBalance()+ (long)(this.getBalance()*this.rate));
+                this.setBalance(this.getBalance() + (long)(this.getBalance() * this.rate));
             }
         }
     }
