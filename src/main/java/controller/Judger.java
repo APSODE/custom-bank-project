@@ -27,6 +27,10 @@ public class Judger {
         return amount > 0;
     }
 
+    public static boolean isZeroAmount(long amount) {
+        return amount == 0;
+    }
+
     public static boolean isRightPw(UserAccount userAccount, String pw) {
         return pw.equals(userAccount.getPw());
     }
@@ -76,5 +80,13 @@ public class Judger {
         Matcher phoneNumberPatternMatcher = phoneNumberRegexPattern.matcher(inputPhoneNumber);
 
         return phoneNumberPatternMatcher.matches();
+    }
+
+    public static boolean isPossibleMinusWithdraw(long minusWithdrawLimit, long currentLoan, long amount) {
+        return minusWithdrawLimit >= (currentLoan + amount);
+    }
+
+    public static boolean isExistLoanAmount(long currentLoanAmount) {
+        return currentLoanAmount > 0;
     }
 }
