@@ -174,6 +174,10 @@ public class MinusAccount extends Account implements Serializable {
         this.interest = interest;
     }
 
+    public void setInterest() {
+        this.interest += (long) (this.loan * this.rate);
+    }
+
     public double getRate() {
         return rate;
     }
