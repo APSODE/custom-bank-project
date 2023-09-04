@@ -19,7 +19,7 @@ public class Serializer<T> {
         this.targetObjectType = targetObjectType;
     }
 
-    public void saveObject(T targetObject, String saveFileName) throws IOException{
+    public void saveObject(T targetObject, String saveFileName){
         // try-with-resources
         try (
                 FileOutputStream fos = new FileOutputStream(saveFileName);
@@ -44,7 +44,7 @@ public class Serializer<T> {
         }
     }
 
-    public T loadObject(String targetFileName) throws IOException{
+    public T loadObject(String targetFileName){
         // 제네릭을 통해 지정한 타입의 오브젝트가 저장될 변수
         T loadedObject = null;
 
