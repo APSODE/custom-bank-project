@@ -1,5 +1,7 @@
 package entity.account;
 
+import entity.user.UserAccount;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -9,19 +11,36 @@ public class InstallmentAccount extends Account implements Serializable {
 
     SavingAccount AccountToSend = null;
 
-    public InstallmentAccount(LocalDate dueDate, double rate, entity.user.UserAccount userAccount)
+    public InstallmentAccount(LocalDate dueDate, double rate, UserAccount userAccount)
     {
         super(userAccount);
         this.dueDate = dueDate;
         this.rate = rate;
     }
 
-    public InstallmentAccount(LocalDate dueDate, double rate, entity.user.UserAccount userAccount, SavingAccount AccountToSend)
+    public InstallmentAccount(LocalDate dueDate, double rate, UserAccount userAccount, SavingAccount AccountToSend)
     {
         super(userAccount);
         this.AccountToSend = AccountToSend;
         this.rate = rate;
         this.dueDate = dueDate;
+    }
+
+    public static InstallmentAccount CreateObject(LocalDate dueDate, double rate, UserAccount userAccount) {
+        return new InstallmentAccount(
+                dueDate,
+                rate,
+                userAccount
+        );
+    }
+
+    public static InstallmentAccount CreateObject(LocalDate dueDate, double rate, UserAccount userAccount, SavingAccount savingAccount) {
+        return new InstallmentAccount(
+                dueDate,
+                rate,
+                userAccount,
+                savingAccount
+        );
     }
 
     public double getRate() {

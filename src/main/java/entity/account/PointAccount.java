@@ -9,8 +9,15 @@ import java.io.Serializable;
 public class PointAccount extends Account implements Serializable {
 
     private long point;
+
     public PointAccount(UserAccount userAccount) {
         super(userAccount);
+    }
+
+    public static PointAccount CreateObject(UserAccount userAccount) {
+        return new PointAccount(
+                userAccount
+        );
     }
 
     public long getPoint() {
@@ -18,20 +25,20 @@ public class PointAccount extends Account implements Serializable {
     }
 
     public boolean earnPoints(long amount) {
-        // Æ÷ÀÎÆ® Àû¸³ °úÁ¤¿¡¼­ ÀÔ±İÀÌ¶û ¾î¶²°ü°è°¡ ÀÖ¾ú´ÂÁö ¸ğ¸£°ÚÀ½
-        // ÇØ´ç if¹® ¾ÈÀÇ Á¶°Ç½ÄÀÌ false¿©¼­ Æ÷ÀÎÆ® Àû¸³ÀÌ µÇÁö ¾Ê¾Æµµ ÇØ´ç ¸Ş¼Òµå´Â true¸¦ ¸®ÅÏÇÔ
+        // í¬ì¸íŠ¸ ì ë¦½ ê³¼ì •ì—ì„œ ì…ê¸ˆì´ë‘ ì–´ë–¤ê´€ê³„ê°€ ìˆì—ˆëŠ”ì§€ ëª¨ë¥´ê² ìŒ
+        // í•´ë‹¹ ifë¬¸ ì•ˆì˜ ì¡°ê±´ì‹ì´ falseì—¬ì„œ í¬ì¸íŠ¸ ì ë¦½ì´ ë˜ì§€ ì•Šì•„ë„ í•´ë‹¹ ë©”ì†Œë“œëŠ” trueë¥¼ ë¦¬í„´í•¨
         this.point += (long) (amount * 0.03);
 
         return true;
     }
 
-       private boolean exampleUsePointsMethod(long amount) throws PointException {
+    private boolean exampleUsePointsMethod(long amount) throws PointException {
         if (!Judger.isOverThanMinUsePoint(this.point)) {
-            throw new PointException("Æ÷ÀÎÆ® »ç¿ëÀº 5000Æ÷ÀÎÆ®ºÎÅÍ »ç¿ëÀÌ °¡´ÉÇÕ´Ï´Ù.");
+            throw new PointException("í¬ì¸íŠ¸ ì‚¬ìš©ì€ 5000í¬ì¸íŠ¸ë¶€í„° ì‚¬ìš©ì´ ê°€ëŠ¥í•©ë‹ˆë‹¤.");
         }
 
         if (!Judger.isShortOfBalance(this.getBalance(), amount, this.point)) {
-            throw new PointException("°èÁÂÀÇ ÀÜ¾×ÀÌ ºÎÁ·ÇÕ´Ï´Ù.");
+            throw new PointException("ê³„ì¢Œì˜ ì”ì•¡ì´ ë¶€ì¡±í•©ë‹ˆë‹¤.");
         }
 
         if (amount <= this.point) {
