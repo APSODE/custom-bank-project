@@ -45,11 +45,7 @@ class SerializerTest {
     @Test
     void saveObject() throws IOException {
         //given
-        User testUser = User.CreateObject(
-                "test user",
-                20,
-                "test phone number"
-        );
+        User testUser = User.CreateTestObject();
 
         UserAccount testUserAccount = UserAccount.CreateObject(
                 testUser,

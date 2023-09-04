@@ -17,15 +17,12 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 class AccountTest {
     private Account testAccount;
     private String testAccountPw = "testPw";
+
     @BeforeEach
     void createTestAccountObject() {
         this.testAccount = Account.CreateObject(
                 UserAccount.CreateObject(
-                        User.CreateObject(
-                                "test user",
-                                20,
-                                "010-1234-5678"
-                        ),
+                        User.CreateTestObject(),
                         "testId",
                         this.testAccountPw
                 )
