@@ -55,7 +55,7 @@ public class MinusAccount extends Account implements Serializable {
     }
 
     // IOException은 Account 클래스의 예외 발생 부분을 수정하면 throws에서 제거
-    public boolean interimRepayment(long amount, String pw) throws RepaymentException, InvalidPasswordException, NegativeAmountException {
+    public boolean interimRepayment(long amount, String pw) throws BalanceException, RepaymentException, InvalidPasswordException, NegativeAmountException {
         if (!Judger.isRightPw(super.getUserAccount(), pw)) {
             throw new InvalidPasswordException("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
         }
@@ -67,13 +67,7 @@ public class MinusAccount extends Account implements Serializable {
         // 상환을 진행한 금액만큼 계좌에서 차감
         // 해당 라인은 boolean 리턴으로 정상작동 여부를 확인가능
         // 따라서 정상작동 검증 로직이 추가가 필요한경우 이를 이용하여야함.
-        try {
-            super.withdraw(amount, pw);
-
-        } catch (BalanceException BE) {
-            Printer.print(BE.getMessage());
-            return false;
-        }
+        super.withdraw(amount, pw);
 
         if (Judger.isLargerThanLoan(this.loan, amount)) {
             // 대출액을 초과한 상환액
