@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class Menu {
     Account selectAccount = null;
-    public boolean userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException {
+    public boolean userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException, InvalidPhoneNumberFormat {
         if(age >= 14)
         {
             throw new AgeException("나이가 14세 이상이어야 합니다.");
@@ -66,8 +66,7 @@ public class Menu {
     }
 
     // 테스트 코드 동작용으로 임시로 throws작성
-    public void accountDeposit(long amount, String pw) throws NegativeAmountException, InvalidPasswordException
-    {
+    public void accountDeposit(long amount, String pw) throws NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         try {
             selectAccount.deposit(amount, pw);
         }
