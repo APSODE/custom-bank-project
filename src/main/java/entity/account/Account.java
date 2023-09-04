@@ -39,7 +39,6 @@ public class Account implements Serializable {
     }
 
     public boolean deposit(long amount, String pw) throws InvalidPasswordException, NegativeAmountException{
-
         if (!Judger.isRightPw(userAccount, pw)) {
             // Printer.print("비밀번호 오류");
             // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
