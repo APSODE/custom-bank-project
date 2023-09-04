@@ -33,31 +33,31 @@ public class Menu {
         if (type.equals("Account"))
         {
             String fileName = "\\account\\Account"+id+".cbp";
-            Serializer<Account> serializer = new Serializer<Account>(Account.class);
+            Serializer<Account> serializer = new Serializer<>(Account.class);
             selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Installment"))
         {
             String fileName = "\\account\\Installment"+id+".cbp";
-            Serializer<InstallmentAccount> serializer = new Serializer<InstallmentAccount>(InstallmentAccount.class);
+            Serializer<InstallmentAccount> serializer = new Serializer<>(InstallmentAccount.class);
             selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Minus"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
-            Serializer<MinusAccount> serializer = new Serializer<MinusAccount>(MinusAccount.class);
+            Serializer<MinusAccount> serializer = new Serializer<>(MinusAccount.class);
             selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Point"))
         {
             String fileName = "\\account\\Point"+id+".cbp";
-            Serializer<PointAccount> serializer = new Serializer<PointAccount>(PointAccount.class);
+            Serializer<PointAccount> serializer = new Serializer<>(PointAccount.class);
             selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Saving"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
-            Serializer<SavingAccount> serializer = new Serializer<SavingAccount>(SavingAccount.class);
+            Serializer<SavingAccount> serializer = new Serializer<>(SavingAccount.class);
             selectAccount = serializer.loadObject(fileName);
         }
         else {
@@ -65,7 +65,8 @@ public class Menu {
         }
     }
 
-    public void accountDeposit(long amount, String pw)
+    // 테스트 코드 동작용으로 임시로 throws작성
+    public void accountDeposit(long amount, String pw) throws NegativeAmountException, InvalidPasswordException
     {
         try {
             selectAccount.deposit(amount, pw);
@@ -75,12 +76,11 @@ public class Menu {
             Printer.print(e.getMessage());
         }
     }
-    public void accountWithdraw(long amount, String pw)
-    {
+    public void accountWithdraw(long amount, String pw) throws NegativeAmountException, InvalidPasswordException {
         try {
             selectAccount.withdraw(amount, pw);
         }
-        catch (InvalidPasswordException e)
+        catch (IllegalArgumentException e)
         {
             Printer.print(e.getMessage());
         }
