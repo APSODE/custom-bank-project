@@ -115,22 +115,20 @@ public class MinusAccount extends Account implements Serializable {
         return true;
     }
 
-    public boolean repayment(String pw) throws RepaymentException, InvalidPasswordException, IOException{
+    public boolean repayment(String pw) throws RepaymentException, InvalidPasswordException{
         if (!Judger.isRightPw(super.getUserAccount(), pw)) {
             throw new InvalidPasswordException("비밀번호 오류, 비밀번호를 재확인하고 다시 시도하십시오.");
         }
 
-        if (Judger.isPossibleRepayment(this)) {
-            this.setBalance(
-                    this.getBalance() - this.loan
-            );
-
-            Printer.print("정상적으로 상환이 진행되었습니다.");
-            return true;
-
-        } else {
+        if (!Judger.isPossibleRepayment(this)) {
             throw new RepaymentException("상환금액 보다 계좌 잔액이 부족합니다.");
         }
+
+        this.setBalance(
+                this.getBalance() - this.loan
+        );
+
+        return true;
     }
 
     public void revolving() {
