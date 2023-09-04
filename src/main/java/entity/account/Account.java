@@ -2,17 +2,15 @@ package entity.account;
 
 import controller.exceptions.BalanceException;
 import controller.Judger;
-import controller.Printer;
 import controller.exceptions.InvalidPasswordException;
 import controller.exceptions.NegativeAmountException;
 import entity.user.UserAccount;
 
-import java.io.IOException;
 import java.io.Serializable;
 
 public class Account implements Serializable {
 
-    private UserAccount userAccount;
+    private final UserAccount userAccount;
     private long balance;
     private long limit;
 
@@ -48,7 +46,7 @@ public class Account implements Serializable {
             throw new InvalidPasswordException("비밀번호 오류");
         }
 
-        if (!Judger.isPossibleToDeposit(amount)) {
+        if (!Judger.isPositiveArgument(amount)) {
             // Printer.print("음수 입력");
             // 이런식으로 출력하는 것이 아닌 exception을 throw를 이용해 던지는 것으로 끝내기만 하면됨.
             throw new NegativeAmountException("음수 입력");
@@ -60,15 +58,22 @@ public class Account implements Serializable {
     }
 
     // 출금 메소드도 입금 메소드와 동일하게 Exception을 발생시키는 방식과 값 검증 과정의 수정이 필요함.
-    public boolean withdraw (long amount, String pw) throws BalanceException, IllegalArgumentException{
-        try {
-            if (Judger.isPossibleToWithdraw(balance, amount)) {
-                balance -= amount;
-            }
-        } catch (BalanceException | IllegalArgumentException exception) {
-            Printer.print(exception.getMessage());
+    public boolean withdraw (long amount, String pw) throws BalanceException, NegativeAmountException, InvalidPasswordException {
+        if (!Judger.isRightPw(this.userAccount, pw)) {
+            throw new InvalidPasswordException("비밀번호가 옳바르지 않습니다.");
         }
+
+        if (!Judger.isPositiveArgument(amount)) {
+            throw new NegativeAmountException("출금액은 음수가 될 수 없습니다.");
+        }
+
+        if (!Judger.isEnoughBalance(this.balance, amount)) {
+            throw new BalanceException("잔액이 부족합니다.");
+        }
+
+        this.balance -= amount;
         return true;
+
     }
 
     public long getLimit () {

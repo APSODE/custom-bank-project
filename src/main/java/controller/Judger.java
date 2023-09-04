@@ -6,6 +6,7 @@ import entity.account.MinusAccount;
 import entity.user.UserAccount;
 
 public class Judger {
+    // 해당 메소드에서 Exception을 발생시키는 것이 아닌 해당 메소드를 사용하는 클래스에서 Exception을 발생시키도록 수정해여야 한다.
     public static boolean isPossibleToWithdraw(long balance, long amount) throws BalanceException {
         if (amount > 0) {
             if (balance - amount >= 0)
@@ -15,7 +16,11 @@ public class Judger {
         throw new IllegalArgumentException("음수인 값 입력");
     }
 
-    public static boolean isPossibleToDeposit(long amount) {
+    public static boolean isEnoughBalance(long balance, long amount) {
+        return balance >= amount;
+    }
+
+    public static boolean isPositiveArgument(long amount) {
         return amount > 0;
     }
 
