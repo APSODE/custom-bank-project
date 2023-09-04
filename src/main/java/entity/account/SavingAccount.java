@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 public class SavingAccount extends Account implements Serializable {
-    private float rate;
+    private double rate;
     private LocalDate lastWithdrawDate;
 
     public SavingAccount(UserAccount userAccount) {
@@ -27,7 +27,7 @@ public class SavingAccount extends Account implements Serializable {
         );
     }
 
-    public float getRate() {
+    public double getRate() {
 
         return rate;
     }
