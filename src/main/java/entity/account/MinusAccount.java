@@ -54,6 +54,33 @@ public class MinusAccount extends Account implements Serializable {
         return new MinusAccount(userAccount);
     }
 
+    public boolean withdrawInMinusAccount(long amount, String pw) throws NoLongerAvailableMinusWithdraw, NegativeAmountException, BalanceException, InvalidPasswordException, ZeroAmountException {
+        if (!Judger.isPossibleMinusWithdraw(this.credit, this.loan, amount)) {
+            throw new NoLongerAvailableMinusWithdraw("마이너스 계좌의 이용 한도를 초과하였습니다.");
+        }
+
+        if (Judger.isEnoughBalance(this.getBalance(), amount)) {
+            return super.withdraw(amount, pw);
+
+        } else {
+            if (!Judger.isRightPw(this.getUserAccount(), pw)) {
+                throw new InvalidPasswordException("비밀번호가 옳바르지 않습니다.");
+            }
+
+            if (!Judger.isPositiveArgument(amount)) {
+                if (Judger.isZeroAmount(amount)) {
+                    throw new ZeroAmountException("출금액은 0원이 될 수 없습니다.");
+                }
+                throw new NegativeAmountException("출금액은 음수가 될 수 없습니다.");
+            }
+
+            long remainderAmount = amount - this.getBalance();
+            this.setBalance(0);
+            this.loan += remainderAmount;
+            return true;
+        }
+    }
+
     // IOException은 Account 클래스의 예외 발생 부분을 수정하면 throws에서 제거
     public boolean interimRepayment(long amount, String pw) throws BalanceException, RepaymentException, InvalidPasswordException, NegativeAmountException {
         if (!Judger.isRightPw(super.getUserAccount(), pw)) {
