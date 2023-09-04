@@ -21,6 +21,14 @@ public class UserAccount implements Serializable {
         );
     }
 
+    public static UserAccount CreateTestObject() {
+        return new UserAccount(
+                User.CreateTestObject(),
+                "testId",
+                "testPw"
+        );
+    }
+
     public User getUserObject() {
         return userObject;
     }

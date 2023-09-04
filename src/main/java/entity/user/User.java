@@ -27,6 +27,19 @@ public class User implements Serializable {
         );
     }
 
+    public static User CreateTestObject() {
+        try {
+            return new User(
+                    "test user",
+                    20,
+                    "010-1234-5678"
+            );
+
+        } catch (InvalidPhoneNumberFormat e) {
+            return null;
+        }
+    }
+
     public String getName() {
         return name;
     }
