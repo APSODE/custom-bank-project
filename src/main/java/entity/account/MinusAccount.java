@@ -77,7 +77,7 @@ public class MinusAccount extends Account implements Serializable {
     }
 
     // IOException은 Account 클래스의 예외 발생 부분을 수정하면 throws에서 제거
-    public boolean interimRepayment(long amount, String pw) throws RepaymentException, InvalidPasswordException, NegativeAmountException, NoLongerAvailableMinusWithdraw, NotExistLoanAmount {
+    public boolean interimRepayment(long amount, String pw) throws RepaymentException, InvalidPasswordException, NegativeAmountException, NoLongerAvailableMinusWithdraw, NotExistLoanAmount, ZeroAmountException {
         if (!Judger.isSmallerThanMaxRepayment(this.maxRepayment, amount)) {
             throw new RepaymentException("1회 상환한도를 초과하는 상환액입니다. 상환액을 재입력하여주십시오.");
         }
