@@ -2,10 +2,10 @@ package boundary;
 
 import controller.Printer;
 import controller.Serializer;
-import controller.exceptions.*;
 import entity.account.*;
 import entity.user.User;
 import entity.user.UserAccount;
+import exceptions.*;
 
 import java.io.IOException;
 
@@ -75,7 +75,7 @@ public class Menu {
             Printer.print(e.getMessage());
         }
     }
-    public void accountWithdraw(long amount, String pw) throws NegativeAmountException, InvalidPasswordException {
+    public void accountWithdraw(long amount, String pw) throws NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         try {
             selectAccount.withdraw(amount, pw);
         }

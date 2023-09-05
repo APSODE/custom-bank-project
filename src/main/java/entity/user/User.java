@@ -1,7 +1,7 @@
 package entity.user;
 
 import controller.Judger;
-import controller.exceptions.InvalidPhoneNumberFormat;
+import exceptions.InvalidPhoneNumberFormat;
 
 import java.io.Serializable;
 

@@ -1,8 +1,12 @@
 package entity.account;
 
-import controller.exceptions.*;
+import exceptions.*;
 import controller.Judger;
 import entity.user.UserAccount;
+import exceptions.BalanceException;
+import exceptions.InvalidPasswordException;
+import exceptions.NegativeAmountException;
+import exceptions.ZeroAmountException;
 
 import java.io.Serializable;
 

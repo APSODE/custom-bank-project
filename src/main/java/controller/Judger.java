@@ -1,7 +1,7 @@
 package controller;
 
-import controller.exceptions.BalanceException;
-import controller.exceptions.PointException;
+import exceptions.BalanceException;
+import exceptions.PointException;
 import entity.account.MinusAccount;
 import entity.user.UserAccount;
 

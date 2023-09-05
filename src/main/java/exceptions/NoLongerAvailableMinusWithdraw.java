@@ -1,4 +1,4 @@
-package controller.exceptions;
+package exceptions;
 
 public class NoLongerAvailableMinusWithdraw extends Exception {
     public NoLongerAvailableMinusWithdraw(String errorMessage) {

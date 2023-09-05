@@ -1,6 +1,6 @@
 package entity.account;
 
-import controller.exceptions.PointException;
+import exceptions.PointException;
 import entity.user.UserAccount;
 import controller.Judger;
 

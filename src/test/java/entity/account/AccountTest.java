@@ -1,9 +1,9 @@
 package entity.account;
 
-import controller.exceptions.BalanceException;
-import controller.exceptions.InvalidPasswordException;
-import controller.exceptions.NegativeAmountException;
-import controller.exceptions.ZeroAmountException;
+import exceptions.BalanceException;
+import exceptions.InvalidPasswordException;
+import exceptions.NegativeAmountException;
+import exceptions.ZeroAmountException;
 import entity.user.User;
 import entity.user.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
