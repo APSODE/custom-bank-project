@@ -69,13 +69,6 @@ public class MinusAccount extends Account implements Serializable {
                 throw new InvalidPasswordException("비밀번호가 옳바르지 않습니다.");
             }
 
-            if (!Judger.isPositiveArgument(amount)) {
-                if (Judger.isZeroAmount(amount)) {
-                    throw new ZeroAmountException("출금액은 0원이 될 수 없습니다.");
-                }
-                throw new NegativeAmountException("출금액은 음수가 될 수 없습니다.");
-            }
-
             long remainderAmount = amount - this.getBalance();
             this.setBalance(0);
             this.loan += remainderAmount;
