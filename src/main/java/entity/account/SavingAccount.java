@@ -1,10 +1,7 @@
 package entity.account;
 
 import controller.Judger;
-import controller.exceptions.BalanceException;
-import controller.exceptions.InvalidPasswordException;
-import controller.exceptions.NegativeAmountException;
-import controller.exceptions.OverWithrawLimitException;
+import controller.exceptions.*;
 import entity.user.UserAccount;
 
 import java.io.Serializable;
@@ -34,7 +31,7 @@ public class SavingAccount extends Account implements Serializable {
         this.rate = rate;
     }
 
-    public boolean withdrawWithLimit(long amount, String pw) throws OverWithrawLimitException, BalanceException, NegativeAmountException, InvalidPasswordException {
+    public boolean withdrawWithLimit(long amount, String pw) throws OverWithrawLimitException, BalanceException, NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         if (!Judger.isNotOverTheLimit(this.getLimit(), amount)) {
             // 이체금액 제한 초과시
             throw new OverWithrawLimitException("제한금액 초과");
