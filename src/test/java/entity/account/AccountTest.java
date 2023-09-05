@@ -3,6 +3,7 @@ package entity.account;
 import controller.exceptions.BalanceException;
 import controller.exceptions.InvalidPasswordException;
 import controller.exceptions.NegativeAmountException;
+import controller.exceptions.ZeroAmountException;
 import entity.user.User;
 import entity.user.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
@@ -48,7 +49,12 @@ class AccountTest {
         assertThatThrownBy(() -> {
             this.testAccount.deposit(-1000, this.testAccountPw);
         }).isInstanceOf(NegativeAmountException.class);
+
+        assertThatThrownBy(() -> {
+            this.testAccount.deposit(0, this.testAccountPw);
+        }).isInstanceOf(ZeroAmountException.class);
     }
+
 
     @DisplayName("출금 테스트")
     @Test
@@ -76,5 +82,9 @@ class AccountTest {
         assertThatThrownBy(() -> {
             this.testAccount.withdraw(1000, "invalid password");
         }).isInstanceOf(InvalidPasswordException.class);
+
+        assertThatThrownBy(() -> {
+            this.testAccount.withdraw(0, this.testAccountPw);
+        }).isInstanceOf(ZeroAmountException.class);
     }
 }
