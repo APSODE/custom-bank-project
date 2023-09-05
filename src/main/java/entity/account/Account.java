@@ -59,12 +59,15 @@ public class Account implements Serializable {
     }
 
     // 출금 메소드도 입금 메소드와 동일하게 Exception을 발생시키는 방식과 값 검증 과정의 수정이 필요함.
-    public boolean withdraw (long amount, String pw) throws BalanceException, NegativeAmountException, InvalidPasswordException {
+    public boolean withdraw (long amount, String pw) throws BalanceException, NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         if (!Judger.isRightPw(this.userAccount, pw)) {
             throw new InvalidPasswordException("비밀번호가 옳바르지 않습니다.");
         }
 
         if (!Judger.isPositiveArgument(amount)) {
+            if (Judger.isZeroAmount(amount)) {
+                throw new ZeroAmountException("출금액은 0원이 될 수 없습니다.");
+            }
             throw new NegativeAmountException("출금액은 음수가 될 수 없습니다.");
         }
 
