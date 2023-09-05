@@ -1,9 +1,6 @@
 package entity.account;
 
-import controller.exceptions.InvalidPasswordException;
-import controller.exceptions.NoLongerAvailableMinusWithdraw;
-import controller.exceptions.NotExistLoanAmount;
-import controller.exceptions.RepaymentException;
+import controller.exceptions.*;
 import entity.user.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -96,9 +93,30 @@ class MinusAccountTest {
 
         assertThatThrownBy(() -> {
             testMinusAccount.withdrawInMinusAccount(
-                    99901,
+                    1000000,
                     this.testUserAccount.getPw()
             );
         }).isInstanceOf(NoLongerAvailableMinusWithdraw.class);
+
+        assertThatThrownBy(() -> {
+            testMinusAccount.withdrawInMinusAccount(
+                    100,
+                    "invalid password"
+            );
+        }).isInstanceOf(InvalidPasswordException.class);
+
+        assertThatThrownBy(() -> {
+            testMinusAccount.withdrawInMinusAccount(
+                    -100,
+                    this.testUserAccount.getPw()
+            );
+        }).isInstanceOf(NegativeAmountException.class);
+
+        assertThatThrownBy(() -> {
+            testMinusAccount.withdrawInMinusAccount(
+                    0,
+                    this.testUserAccount.getPw()
+            );
+        }).isInstanceOf(ZeroAmountException.class);
     }
 }
