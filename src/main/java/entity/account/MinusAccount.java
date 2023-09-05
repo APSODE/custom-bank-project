@@ -90,6 +90,13 @@ public class MinusAccount extends Account implements Serializable {
             throw new InvalidPasswordException("비밀번호가 옳바르지 않습니다.");
         }
 
+        if (!Judger.isPositiveArgument(amount)) {
+            if (Judger.isZeroAmount(amount)) {
+                throw new ZeroAmountException("중도 상환 금액은 0원이 될 수 없습니다.");
+            }
+            throw new NegativeAmountException("중도 상환 금액은 음수가 될 수 없습니다.");
+        }
+
         // 상환을 진행한 금액만큼 계좌에서 차감
         // 해당 라인은 boolean 리턴으로 정상작동 여부를 확인가능
         // 따라서 정상작동 검증 로직이 추가가 필요한경우 이를 이용하여야함.
