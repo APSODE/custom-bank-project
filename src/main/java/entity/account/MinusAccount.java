@@ -54,6 +54,13 @@ public class MinusAccount extends Account implements Serializable {
             throw new NoLongerAvailableMinusWithdraw("마이너스 계좌의 이용 한도를 초과하였습니다.");
         }
 
+        if (!Judger.isPositiveArgument(amount)) {
+            if (Judger.isZeroAmount(amount)) {
+                throw new ZeroAmountException("출금액은 0원이 될 수 없습니다.");
+            }
+            throw new NegativeAmountException("출금액은 음수가 될 수 없습니다.");
+        }
+
         if (Judger.isEnoughBalance(this.getBalance(), amount)) {
             return super.withdraw(amount, pw);
 
