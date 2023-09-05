@@ -27,6 +27,10 @@ public class PointAccount extends Account implements Serializable {
         return point;
     }
 
+    public void setPoint(long optionalPoint) {
+        this.point = optionalPoint;
+    }
+
     public boolean earnPoints(long amount) {
         // 포인트 적립 과정에서 입금이랑 어떤관계가 있었는지 모르겠음
         // 해당 if문 안의 조건식이 false여서 포인트 적립이 되지 않아도 해당 메소드는 true를 리턴함
