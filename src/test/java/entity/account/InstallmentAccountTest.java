@@ -4,6 +4,7 @@ import exceptions.InvalidPhoneNumberFormat;
 import entity.user.User;
 import entity.user.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -28,6 +29,7 @@ class InstallmentAccountTest {
         );
     }
 
+    @DisplayName("적금 누적 테스트")
     @Test
     void dueProcess() {
         // given
