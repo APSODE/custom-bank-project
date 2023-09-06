@@ -66,7 +66,7 @@ public class InstallmentAccount extends Account implements Serializable {
         {
             if(AccountToSend != null)
             {
-                AccountToSend.setBalance(super.getBalance() + this.getBalance());
+                AccountToSend.setBalance(AccountToSend.getBalance() + this.getBalance());
             }
             else
             {
