@@ -36,7 +36,7 @@ public class Judger {
     }
 
     public static boolean isOverThanMinUsePoint(long point) {
-        return point <= 5000;
+        return point >= 5000;
     }
 
     public static boolean isShortOfBalance(long balance, long amount, long point) {
