@@ -10,7 +10,7 @@ import exceptions.*;
 import java.io.IOException;
 
 public class Menu {
-    Account selectAccount = null;
+    private Account selectAccount = null;
     public boolean userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException, InvalidPhoneNumberFormat {
         if(age >= 14)
         {
@@ -34,31 +34,31 @@ public class Menu {
         {
             String fileName = "\\account\\Account"+id+".cbp";
             Serializer<Account> serializer = new Serializer<>(Account.class);
-            selectAccount = serializer.loadObject(fileName);
+            this.selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Installment"))
         {
             String fileName = "\\account\\Installment"+id+".cbp";
             Serializer<InstallmentAccount> serializer = new Serializer<>(InstallmentAccount.class);
-            selectAccount = serializer.loadObject(fileName);
+            this.selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Minus"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
             Serializer<MinusAccount> serializer = new Serializer<>(MinusAccount.class);
-            selectAccount = serializer.loadObject(fileName);
+            this.selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Point"))
         {
             String fileName = "\\account\\Point"+id+".cbp";
             Serializer<PointAccount> serializer = new Serializer<>(PointAccount.class);
-            selectAccount = serializer.loadObject(fileName);
+            this.selectAccount = serializer.loadObject(fileName);
         }
         else if (type.equals("Saving"))
         {
             String fileName = "\\account\\Minus"+id+".cbp";
             Serializer<SavingAccount> serializer = new Serializer<>(SavingAccount.class);
-            selectAccount = serializer.loadObject(fileName);
+            this.selectAccount = serializer.loadObject(fileName);
         }
         else {
             throw new NoTypeException("존재하지 않는 형식입니다.");
@@ -68,7 +68,7 @@ public class Menu {
     // 테스트 코드 동작용으로 임시로 throws작성
     public void accountDeposit(long amount, String pw) throws NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         try {
-            selectAccount.deposit(amount, pw);
+            this.selectAccount.deposit(amount, pw);
         }
         catch(InvalidPasswordException e)
         {
@@ -77,7 +77,7 @@ public class Menu {
     }
     public void accountWithdraw(long amount, String pw) throws NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         try {
-            selectAccount.withdraw(amount, pw);
+            this.selectAccount.withdraw(amount, pw);
         }
         catch (IllegalArgumentException e)
         {
