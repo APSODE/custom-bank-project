@@ -1,5 +1,6 @@
 .idea/
 .out/
+dist/
 node_modules/
 ### Gradle ###
 .gradle
