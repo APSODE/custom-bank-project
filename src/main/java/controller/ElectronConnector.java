@@ -16,6 +16,10 @@ public class ElectronConnector {
         this.createElectronInputWriter();
     }
 
+    public static ElectronConnector CreateObject() {
+        return new ElectronConnector();
+    }
+
     private void createElectronProcess() {
         try {
             ProcessBuilder electronProcessBuilder = new ProcessBuilder(
