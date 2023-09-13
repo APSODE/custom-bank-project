@@ -23,9 +23,12 @@ public class ElectronConnector {
     private void createElectronProcess() {
         try {
             ProcessBuilder electronProcessBuilder = new ProcessBuilder(
-                    "electron",
-                    "../electron/main.js"
+                    "node",
+                    "./node_modules/.bin/electron",
+                    "./src/main/electron/main.js"
             );
+
+            electronProcessBuilder.redirectErrorStream(true);
 
             this.electronProcess = electronProcessBuilder.start();
         } catch (IOException IOE) {
