@@ -2,7 +2,11 @@ const path = require('path');
 
 module.exports = {
     mode: 'development',
-    entry: './src/main/electron/index.js',
+    // entry: "./src/main/react/index.js",
+    entry: {
+        // index: path.resolve(__dirname + '/src/main/', 'react', 'index.js')
+        index: './src/main/react/index.js'
+    },
     devtool: 'inline-source-map',
     target: 'electron-renderer',
     module: {

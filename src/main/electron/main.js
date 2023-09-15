@@ -10,7 +10,8 @@ function createWindow () {
         }
     })
 
-    win.loadFile('src/main/electron/index.html')
+    // win.loadFile('src/main/electron/index.html')
+    win.loadURL("http://localhost:3000")
 }
 
 app.whenReady().then(() => {
