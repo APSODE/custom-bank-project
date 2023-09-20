@@ -29,3 +29,5 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 /custom-bank-project.zip
+/Testor.js
+/yarn-error.log

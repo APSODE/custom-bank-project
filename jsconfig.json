@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/main/react/*"],
+      "@components": ["./src/main/react/components/*"],
+      "@states": ["./src/main/react/states/*"],
+      "@utils": ["./src/main/react/utils/*"],
+      "@routers": ["./src/main/react/router/*"]
+    }
+  }
+}
