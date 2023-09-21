@@ -2,6 +2,7 @@ package boundary;
 
 import controller.Printer;
 import controller.Serializer;
+import controller.Judger
 import entity.account.*;
 import entity.user.User;
 import entity.user.UserAccount;
@@ -16,7 +17,7 @@ public class Menu {
         {
             throw new AgeException("나이가 14세 이상이어야 합니다.");
         }
-        if(PhoneNumber.length() == 11 || PhoneNumber.length() == 10) {
+        if(Judger.isValidPhoneNumber(PhoneNumber)) {
             User user = User.CreateObject(name, age, PhoneNumber);
             return true;
         }
