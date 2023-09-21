@@ -2,7 +2,7 @@ package boundary;
 
 import controller.Printer;
 import controller.Serializer;
-import controller.Judger
+import controller.Judger;
 import entity.account.*;
 import entity.user.User;
 import entity.user.UserAccount;
