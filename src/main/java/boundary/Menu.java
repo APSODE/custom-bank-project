@@ -13,7 +13,7 @@ import java.io.IOException;
 public class Menu {
     private Account selectAccount = null;
     public boolean userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException, InvalidPhoneNumberFormat {
-        if(age >= 14)
+        if(age < 14)
         {
             throw new AgeException("나이가 14세 이상이어야 합니다.");
         }
