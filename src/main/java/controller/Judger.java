@@ -5,6 +5,7 @@ import exceptions.PointException;
 import entity.account.MinusAccount;
 import entity.user.UserAccount;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,5 +89,10 @@ public class Judger {
 
     public static boolean isExistLoanAmount(long currentLoanAmount) {
         return currentLoanAmount > 0;
+    }
+
+    public static boolean isAlreadyExistFile(String file_path) {
+        File checkTargetFile = new File(file_path);
+        return checkTargetFile.exists();
     }
 }
