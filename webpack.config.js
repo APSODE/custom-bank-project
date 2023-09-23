@@ -1,12 +1,8 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    // entry: "./src/main/react/index.js",
-    entry: {
-        // index: path.resolve(__dirname + '/src/main/', 'react', 'index.js')
-        index: './src/main/react/index.js'
-    },
     devtool: 'inline-source-map',
     target: 'electron-renderer',
     module: {
@@ -47,4 +43,15 @@ module.exports = {
         filename: 'app.js',
         path: path.resolve(__dirname, 'build', 'js'),
     },
+
+    plugins: [new HtmlWebpackPlugin({
+        template: "./public/index.html"
+    })],
+
+    devServer: {
+        static: {
+            directory: path.resolve(__dirname, 'build')
+        },
+        port: 8080
+    }
 };

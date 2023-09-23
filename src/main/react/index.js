@@ -1,11 +1,16 @@
+// const React = require("react")
+// const ReactDom = require("react-dom")
+
 import React from "react";
-import ReactDom from "react-dom";
+import ReactDom from "react-dom"
+import MainPage from "./component/MainPage";
+import PageRouter from "@/router/PageRouter";
 
 function render() {
     ReactDom.render(
-        <h2>
-            싯팔 리액트 적용하기 뭐이리 까다롭냐
-        </h2>,
+        <div className="App">
+            <PageRouter/>
+        </div>,
         document.getElementById("root")
     )
 }
