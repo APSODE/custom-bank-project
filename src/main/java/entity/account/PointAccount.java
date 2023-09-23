@@ -69,7 +69,6 @@ public class PointAccount extends Account implements Serializable {
                     this.getBalance() - amountRemainder
             );
         }
-
         return true;
     }
 }

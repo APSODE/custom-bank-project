@@ -30,7 +30,7 @@ public class Menu {
         return true;
     }
 
-    public void accountInquiry(String id, String pw, String type) throws IOException, NoTypeException {
+    public void accountInquiry(String id, String type) throws IOException, NoTypeException {
         final String FILE_PATH = "\\account"; final String FILE_EXTENSION = ".cbp";
         String filename = FILE_PATH + type + id + FILE_EXTENSION;
         Serializer serializer = switch (type) {
@@ -62,6 +62,26 @@ public class Menu {
         {
             Printer.print(e.getMessage());
         }
+    }
+
+    public long getAccountBalance()
+    {
+        return selectAccount.getBalance();
+    }
+
+    public long checkAccountBalance(String pw) throws InvalidPasswordException {
+        try
+        {
+            if (selectAccount.withdraw(1,pw))
+            {
+                selectAccount.deposit(1,pw);
+            }
+        }
+        catch (NegativeAmountException | ZeroAmountException | BalanceException e)
+        {
+            return selectAccount.getBalance();
+        }
+        return selectAccount.getBalance();
     }
 
 }
