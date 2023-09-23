@@ -1,11 +1,8 @@
 package entity.account;
 
-import exceptions.InvalidPasswordException;
-import exceptions.NegativeAmountException;
-import exceptions.PointException;
+import exceptions.*;
 import entity.user.UserAccount;
 import controller.Judger;
-import exceptions.ZeroAmountException;
 
 import java.io.Serializable;
 
@@ -37,6 +34,12 @@ public class PointAccount extends Account implements Serializable {
         this.point += (long) (amount * 0.03);
 
         return true;
+    }
+
+    @Override
+    public boolean withdraw(long amount, String pw) throws BalanceException, NegativeAmountException, InvalidPasswordException, ZeroAmountException {
+        earnPoints(amount);
+        return super.withdraw(amount, pw);
     }
 
     public boolean withdrawWithPoint(long amount, String  pw) throws PointException, InvalidPasswordException, ZeroAmountException, NegativeAmountException {
