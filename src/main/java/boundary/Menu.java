@@ -42,7 +42,6 @@ public class Menu {
         };
         this.selectAccount = (Account) serializer.loadObject(filename);
     }
-
     // 테스트 코드 동작용으로 임시로 throws 작성
     public void accountDeposit(long amount, String pw) throws NegativeAmountException, InvalidPasswordException, ZeroAmountException {
         try {
@@ -81,6 +80,12 @@ public class Menu {
             return selectAccount.getBalance();
         }
         return selectAccount.getBalance();
+    }
+
+    public long getPoint()
+    {
+        PointAccount pointAccount = (PointAccount) selectAccount;
+        return pointAccount.getPoint();
     }
 
 }
