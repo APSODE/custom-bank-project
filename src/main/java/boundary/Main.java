@@ -148,21 +148,8 @@ public class Main {
                         String type = input[0];
                         final String FILE_PATH = "\\account"; final String FILE_EXTENSION = ".cbp";
                         String filename = FILE_PATH + type + makingAccount.getId() + FILE_EXTENSION;
-                        try {
-                            Serializer serializer = switch (type) {
-                                case "Account" -> new Serializer<>(Account.class);
-                                case "Installment" -> new Serializer<>(InstallmentAccount.class);
-                                case "Minus" -> new Serializer<>(MinusAccount.class);
-                                case "Point" -> new Serializer<>(PointAccount.class);
-                                case "Saving" -> new Serializer<>(SavingAccount.class);
-                                default -> throw new NoTypeException("존재하지 않는 형식입니다.");
-                            };
-                            serializer.saveObject(makingAccount,filename);
-                        }
-                        catch(NoTypeException e)
-                        {
-                            Printer.print(e.getMessage());
-                        }
+                        Serializer<> serializer = new Serializer<>(UserAccount.class);
+                        serializer.saveObject(makingAccount, filename);
 
                         break;
                     case "5":
