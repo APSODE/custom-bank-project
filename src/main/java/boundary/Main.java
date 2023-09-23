@@ -32,11 +32,16 @@ public class Main {
                         }
 
                         try {
-                            menu.accountInquiry(selectAccount[0], converter(selectAccount[2]));
-                            Printer.print("얼마 만큼 인출하시겠습니까?\n");
-                            int amount = Inputter.inpInt();
-                            menu.accountWithdraw(amount, selectAccount[1]);
-                            Printer.print("계좌에" + amount + "만큼 인출되어 현재 "+menu.getAccountBalance()+"원 있습니다.");
+                            if (converter(selectAccount[2]).equals("Point"))
+                            {
+                            }
+                            else {
+                                menu.accountInquiry(selectAccount[0], converter(selectAccount[2]));
+                                Printer.print("얼마 만큼 인출하시겠습니까?\n");
+                                int amount = Inputter.inpInt();
+                                menu.accountWithdraw(amount, selectAccount[1]);
+                                Printer.print("계좌에" + amount + "만큼 인출되어 현재 " + menu.getAccountBalance() + "원 있습니다.");
+                            }
                         }
 
                         catch (NoTypeException e)
@@ -145,12 +150,25 @@ public class Main {
                             break;
                         }
 
-                        String type = input[0];
-                        final String FILE_PATH = "\\account"; final String FILE_EXTENSION = ".cbp";
-                        String filename = FILE_PATH + type + makingAccount.getId() + FILE_EXTENSION;
-                        Serializer<> serializer = new Serializer<>(UserAccount.class);
-                        serializer.saveObject(makingAccount, filename);
-
+                        try {
+                            String type = input[0];
+                            final String FILE_PATH = "\\account";
+                            final String FILE_EXTENSION = ".cbp";
+                            String filename = FILE_PATH + type + makingAccount.getId() + FILE_EXTENSION;
+                            Serializer serializer = switch (type) {
+                                case "Account" -> new Serializer<>(Account.class);
+                                case "Installment" -> new Serializer<>(InstallmentAccount.class);
+                                case "Minus" -> new Serializer<>(MinusAccount.class);
+                                case "Point" -> new Serializer<>(PointAccount.class);
+                                case "Saving" -> new Serializer<>(SavingAccount.class);
+                                default -> throw new NoTypeException("존재하지 않는 형식입니다.");
+                            };
+                            serializer.saveObject(makingAccount, filename);
+                        }
+                        catch (NoTypeException e)
+                        {
+                            Printer.print(e.getMessage());
+                        }
                         break;
                     case "5":
                         break LOOP;
