@@ -12,22 +12,21 @@ import java.io.IOException;
 
 public class Menu {
     private Account selectAccount = null;
-    public boolean userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException, InvalidPhoneNumberFormat {
+    public User userIDMake(String name, int age, String PhoneNumber) throws AgeException, PhoneNumberException, InvalidPhoneNumberFormat {
         if(age < 14)
         {
             throw new AgeException("나이가 14세 이상이어야 합니다.");
         }
         if(Judger.isValidPhoneNumber(PhoneNumber)) {
-            User user = User.CreateObject(name, age, PhoneNumber);
-            return true;
+            return User.CreateObject(name, age, PhoneNumber);
         }
         throw new PhoneNumberException("올바르지 않은 전화번호 입니다.");
     }
 
-    public boolean userAccountMake(User user, String id, String pw)
+    public UserAccount userAccountMake(User user, String id, String pw)
     {
-        UserAccount account = UserAccount.CreateObject(user, id, pw);
-        return true;
+        UserAccount account;
+        return account = UserAccount.CreateObject(user, id, pw);
     }
 
     public void accountInquiry(String id, String type) throws IOException, NoTypeException {
